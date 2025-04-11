@@ -9,18 +9,18 @@ private:
     int array_size;
 
 public:
-    // Constructor
+    // constructor
     GenericArray() {
         array = nullptr;
         array_size = 0;
     }
 
-    // Destructor
+    // destructor
     ~GenericArray() {
         delete[] array;
     }
 
-    // Add element to the end of the array
+    // add element to the end of the array
     void addElement(T element) {
         T* new_array = new T[array_size + 1];
         for (int i = 0; i < array_size; i++) {
@@ -32,7 +32,7 @@ public:
         array_size++;
     }
 
-    // Return value at index param
+    // return value at index param
     T at(int param) {
         if (param >= 0 && param < array_size) {
             return array[param];
@@ -40,12 +40,12 @@ public:
         throw std::out_of_range("Index out of range");
     }
 
-    // Return size of the array
+    // return size of the array
     int size() {
         return array_size;
     }
 
-    // Return sum of all elements
+    // return sum of all elements
     T sum() {
         T total = 0;
         for (int i = 0; i < array_size; i++) {
@@ -54,7 +54,7 @@ public:
         return total;
     }
 
-    // Return maximum element
+    // return maximum element
     T max() {
         if (array_size == 0) throw std::runtime_error("Array is empty");
         T max_val = array[0];
@@ -66,7 +66,7 @@ public:
         return max_val;
     }
 
-    // Return minimum element
+    // return minimum element
     T min() {
         if (array_size == 0) throw std::runtime_error("Array is empty");
         T min_val = array[0];
@@ -78,7 +78,7 @@ public:
         return min_val;
     }
 
-    // Return a new array with sliced elements from begin to end (inclusive)
+    // return a new array with sliced elements from start to end
     T* slice(int begin, int end) {
         if (begin < 0 || end >= array_size || begin > end) {
             throw std::out_of_range("Slice indices out of bounds");
@@ -93,4 +93,34 @@ public:
     }
 };
 
+int main() {
+    GenericArray<int> int_array;
+
+    //adding myself some elements
+    int_array.addElement(10);
+    int_array.addElement(20);
+    int_array.addElement(30);
+    int_array.addElement(40);
+    int_array.addElement(50);
+    int_array.addElement(60);
+    int_array.addElement(70);
+    int_array.addElement(80);
+    int_array.addElement(90);
+    int_array.addElement(100);
+
+    std::cout << "size of array is " << int_array.size() << std::endl;
+    std::cout << "sum of the array is " << int_array.sum() << std::endl;
+    std::cout << "maximum and minimum of array is "
+              << int_array.max() << "\t" << int_array.min() << std::endl;
+
+    int* sliced_array = int_array.slice(5, 9);  // 6th to 10th elemetns
+    std::cout << "sliced array is: ";
+    for (int i = 0; i <= 9 - 5; ++i) {
+        std::cout << sliced_array[i] << " ";
+    }
+    std::cout << std::endl;
+
+    delete[] sliced_array;
+    return 0;
+}
 
